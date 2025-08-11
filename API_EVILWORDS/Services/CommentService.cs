@@ -2,6 +2,7 @@
 using API_EVILWORDS.Models;
 using Microsoft.Data.Sqlite;
 using SQLitePCL;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace API_EVILWORDS.Services
 {
@@ -9,8 +10,13 @@ namespace API_EVILWORDS.Services
   {
     public async Task<IEnumerable<Comment>> LoadData()
     {
-      Batteries_V2.Init(); 
-      string db_path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "comments.db");
+      Batteries_V2.Init();
+      string binPath = AppDomain.CurrentDomain.BaseDirectory;
+      string projectRoot = Path.GetFullPath(Path.Combine(binPath, "..", "..", ".."));
+      string db_path = Path.Combine(projectRoot, "Data", "comments.db");
+
+
+
 
       string query = "SELECT * FROM comments";
       List<Comment> comments = [];
